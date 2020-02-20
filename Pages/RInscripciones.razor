@@ -41,9 +41,9 @@
     </div>
     <div class="form-group">
         <div class="form-row">
-            <button class="btn btn-primary" @onclick="Nuevo">Nuevo</button>
+            <button class="btn btn-primary" type="button" @onclick="Nuevo">Nuevo</button>
             <button class="btn btn-success" type="submit">Guardar</button>
-            <button class="btn btn-danger" @onclick="Eliminar">Eliminar</button>
+            <button class="btn btn-danger" type="button" @onclick="Eliminar">Eliminar</button>
         </div>
     </div>
     <ValidationSummary />
@@ -99,6 +99,7 @@
             Calcular();
             //InscripcionController.Guardar(ins);
             Estado=InscripcionController.Guardando(ins);
+            
         }
         else
         {
