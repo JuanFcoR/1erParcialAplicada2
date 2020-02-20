@@ -4,25 +4,48 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace _1erParcialAplicada2.Controllers
 {
     public class InscripcionController
     {
+        public static string Guardando(Inscripciones inscripcion)
+        {
+            string estado=String.Empty;
+            //try
+            //{
+                if(inscripcion.InscripcionId==0)
+                {
+                    Guardar(inscripcion);
+                    estado = "Guardo!!";
+
+                }
+                else
+                {
+                    Modificar(inscripcion);
+                    estado = "Modifico!!";
+                }
+            //}
+            //catch (Exception)
+            //{
+
+            //    throw;
+            //}
+            return estado;
+           
+        }
         public static bool Guardar(Inscripciones inscripcion )
         {
-            bool paso=false;
+            bool paso=true;
             Contexto contexto = new Contexto();
 
             try
             {
                
                 contexto.Inscripciones.Add(inscripcion);
-                if (contexto.SaveChanges()>0)
-                {
-                    paso = true;
-                }
+                paso = contexto.SaveChanges() > 0;
             }
             catch (Exception)
             {
@@ -53,7 +76,7 @@ namespace _1erParcialAplicada2.Controllers
             return paso;
         }
 
-        public Inscripciones Buscar(int id)
+        public static Inscripciones Buscar(int id)
         {
             Inscripciones ins;
             Contexto c = new Contexto();
@@ -73,14 +96,17 @@ namespace _1erParcialAplicada2.Controllers
             return ins;
         }
 
-        public bool Eliminar(int id)
+        public static bool Eliminar(int id)
         {
             bool paso = false;
-            Ins
+           
             Contexto c = new Contexto();
             try
             {
-                
+                Inscripciones ins = c.Inscripciones.Find(id);
+                c.Inscripciones.Remove(ins);
+
+                c.SaveChanges();
             }
             catch (Exception)
             {
@@ -89,6 +115,23 @@ namespace _1erParcialAplicada2.Controllers
             }
             c.Dispose();
             return paso;
+        }
+
+        public static List<Inscripciones> GetList(Expression<Func<Inscripciones,bool>>expression)
+        {
+            Contexto c = new Contexto();
+            List<Inscripciones> Lista;
+            try
+            {
+                Lista = c.Inscripciones.Where(p=>true).ToList();
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           return Lista;
         }
             
         

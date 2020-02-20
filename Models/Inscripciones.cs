@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,7 @@ namespace _1erParcialAplicada2.Models
 {
     public class Inscripciones
     {
+        [Key]
         public int InscripcionId { get; set; }
         public string Semestre { get; set; }
         public int Limite { get; set; }
